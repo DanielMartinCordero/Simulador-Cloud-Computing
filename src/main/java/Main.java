@@ -6,7 +6,7 @@ public class Main {
         CloudServer cloudServer = new CloudServer();
         FogNode fogNode = new FogNode(cloudServer);
         EdgeNode edgeNode = new EdgeNode(fogNode);
-
+        
         System.out.println("========Simulación Cloud - Fog - Edge ========\n");
 
         System.out.println("Escriba el número de datos que quiere registrar");
