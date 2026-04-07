@@ -10,7 +10,7 @@ public class EdgeNode {
 
     public void sendData(int totalReadings){
         for(int i = 1; i <= totalReadings; i++){
-            if(fogNode.getAlertCount()<=20) {
+            if(fogNode.getAlertCount()<20) {
                 double temperature = 20 + random.nextDouble() * 15;
                 SensorData data = new SensorData("sensor-1", temperature);
                 System.out.println("[EDGE] Enviando lectura: " + i + ": " + data);
