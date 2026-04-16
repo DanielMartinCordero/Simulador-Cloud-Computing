@@ -13,6 +13,8 @@ public class Main {
         // Usamos el primer Edge del primer Fog para la simulación
         FogNode primerFog = cloudServer.getFogsAsignados().get(0);
         EdgeNode primerEdge = primerFog.getEdgesAsignados().get(0);
+        
+        //Para comprobar que funcionan las iteraciones, ejecutar este bucle
         /*
          * for (int i = 0; i < 5; i++) {
          * System.out.println(cloudServer.getFogsAsignados().get(i));
