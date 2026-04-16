@@ -3,10 +3,22 @@ import java.util.List;
 
 public class CloudServer {
     private final List<SensorData> dataList = new ArrayList<>();
+    private ArrayList<FogNode> fogsAsignados = new ArrayList<FogNode>();
+    static int edgeCounter = 1;
+
+    public CloudServer() {
+        for (int i = 1; i <= 5; i++) {
+            new FogNode("FOG-" + i, this);
+        }
+    }
 
     public void saveData(SensorData data) {
         dataList.add(data);
-        System.out.println("[CLOUD] Dato guardado: "+data);
+        System.out.println("[CLOUD] Dato guardado: " + data);
+    }
+
+    public ArrayList<FogNode> getFogsAsignados() {
+        return fogsAsignados;
     }
 
     public void showData() {
@@ -15,17 +27,17 @@ public class CloudServer {
 
         System.out.println("\n[CLOUD] Historial de datos:");
 
-        if(dataList.isEmpty()) {
+        if (dataList.isEmpty()) {
             System.out.println("No hay datos guardados");
             return;
         }
 
-        for(SensorData data : dataList){
+        for (SensorData data : dataList) {
             System.out.println(data);
             sum += data.getTemperature();
         }
 
-        average = sum/dataList.size();
-        System.out.println("Media de temperaturas: "+ String.format("%.2f", average));
+        average = sum / dataList.size();
+        System.out.println("Media de temperaturas: " + String.format("%.2f", average));
     }
 }
