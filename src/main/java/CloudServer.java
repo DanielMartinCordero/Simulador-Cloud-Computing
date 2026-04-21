@@ -5,6 +5,7 @@ public class CloudServer {
     private final List<SensorData> dataList = new ArrayList<>();
     private ArrayList<FogNode> fogsAsignados = new ArrayList<FogNode>();
     static int edgeCounter = 1;
+    private int totalAlertCount = 0;  // Contador global de alertas en todo el sistema
 
     public CloudServer() {
         for (int i = 1; i <= 5; i++) {
@@ -12,13 +13,28 @@ public class CloudServer {
         }
     }
 
-    public void saveData(SensorData data) {
-        dataList.add(data);
-        System.out.println("[CLOUD] Dato guardado: " + data);
+    public void saveData(ArrayList<SensorData> paqueteDeDatos) {
+        for(SensorData data: paqueteDeDatos) {
+            try {
+                Thread.sleep(2000); // 2000 ms = 2 segundos
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            dataList.add(data);
+            System.out.println("[CLOUD] Dato guardado: " + data);
+        }
     }
 
     public ArrayList<FogNode> getFogsAsignados() {
         return fogsAsignados;
+    }
+
+    public int getTotalAlertCount() {
+        return totalAlertCount;
+    }
+
+    public void incrementAlert() {
+        totalAlertCount++;
     }
 
     public void showData() {

@@ -13,16 +13,21 @@ public class EdgeNode {
 
     public void sendData(int totalReadings) {
         for (int i = 1; i <= totalReadings; i++) {
-            if (fogNode.getAlertCount() < 20) {
+            if (fogNode.getCloudServer().getTotalAlertCount() < 20) {
                 double temperature = 20 + RANDOM.nextDouble() * 15;
-                SensorData data = new SensorData("sensor-1", temperature);
-                System.out.println("[EDGE] Enviando lectura: " + i + ": " + data);
+                SensorData data = new SensorData(name, temperature); // El sensor ID es el nombre del edge
+                System.out.println("[" + fogNode.getName() + " | " + name + "] Enviando lectura " + i + ": " + data);
                 fogNode.processData(data);
                 System.out.println();
             } else {
-                System.out.println("Registro parado, el número de alertas es igual o mayor a 20");
+                System.out.println("[" + fogNode.getName() + " | " + name
+                        + "] Registro parado, límite global de 20 alertas alcanzado.");
                 break;
             }
         }
+    }
+
+    public String getName() {
+        return name;
     }
 }

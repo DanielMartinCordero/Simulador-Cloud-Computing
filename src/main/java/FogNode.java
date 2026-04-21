@@ -5,6 +5,7 @@ public class FogNode {
     private final CloudServer cloudServer;
     ArrayList<EdgeNode> edgesAsignados = new ArrayList<EdgeNode>();
     private int alertCount;
+    ArrayList<SensorData> paqueteParaEnviar = new ArrayList<>();
 
     public FogNode(String name, CloudServer cloudServer) {
         this.name = name;
@@ -17,19 +18,31 @@ public class FogNode {
     }
 
     public void processData(SensorData data) {
-        System.out.println("[FOG] Dato recibido: " + data);
+        System.out.println("[" + name + "] Dato recibido: " + data);
         if (data.getTemperature() > 30) {
             alertCount++;
-
-            System.out.println("[FOG] Alerta: temperatura alta");
+            cloudServer.incrementAlert();  // Incrementa el contador GLOBAL del sistema
+            System.out.println("[" + name + "] ⚠ Temperatura alta (alerta global " + cloudServer.getTotalAlertCount() + "/20)");
         } else {
-            System.out.println("[FOG] Temperatura normal");
+            System.out.println("[" + name + "] Temperatura normal");
         }
-        cloudServer.saveData(data);
+        paqueteParaEnviar.add(data);
+        if (paqueteParaEnviar.size() == 5 || cloudServer.getTotalAlertCount() >= 20) {
+            cloudServer.saveData(paqueteParaEnviar);
+            paqueteParaEnviar.clear();
+        }
     }
 
     public ArrayList<EdgeNode> getEdgesAsignados() {
         return edgesAsignados;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public CloudServer getCloudServer() {
+        return cloudServer;
     }
 
     public int getAlertCount() {
