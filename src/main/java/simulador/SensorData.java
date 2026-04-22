@@ -1,3 +1,5 @@
+package simulador;
+
 public class SensorData {
 
     private final String deviceId;

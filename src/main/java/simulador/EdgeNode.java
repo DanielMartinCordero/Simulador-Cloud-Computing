@@ -1,3 +1,5 @@
+package simulador;
+
 import java.util.Random;
 
 public class EdgeNode {
